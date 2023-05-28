@@ -3,15 +3,19 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@babel/plugin-proposal-private-property-in-object": "^7.21.0",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "@types/jest": "^27.5.2",
-    "@types/node": "^16.18.34",
+    "@types/node": "^16.18.33",
     "@types/react": "^18.2.7",
     "@types/react-dom": "^18.2.4",
+    "css-loader": "^6.7.4",
+    "package": "^1.0.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-router-dom": "^6.11.2",
     "react-scripts": "5.0.1",
     "typescript": "^4.9.5",
     "web-vitals": "^2.1.4"
@@ -20,7 +24,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "build-web": "webpack --config webpack.config.js"
   },
   "eslintConfig": {
     "extends": [
@@ -39,5 +44,14 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@types/chrome": "^0.0.237",
+    "ts-loader": "^9.4.3",
+    "webpack": "^5.84.1",
+    "webpack-cli": "^5.1.1"
+  },
+  "browser": {
+    "chrome": false
   }
 }
