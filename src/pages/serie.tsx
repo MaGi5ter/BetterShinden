@@ -7,7 +7,7 @@ import "../assets/serie.css";
 
 function Serie() {
   const params = useParams();
-  const [episodesList, setEpisodesList] = useState();
+  const [episodesList, setEpisodesList] = useState(["Loading", "", "0"]);
   const [serieData, setSerieData] = useState<serieDataIn>();
   const [loadingList, setLoadingList] = useState(true);
 
@@ -57,7 +57,7 @@ function Serie() {
     return data;
   }
 
-  //if (loadingList == true) getEpisodesList();
+  if (loadingList == true) getEpisodesList();
 
   async function getEpisodesList() {
     let full_url = "";
@@ -91,7 +91,7 @@ function Serie() {
 
     let episodesSiteRaw = await fetchRAW(full_url);
     let episodesSiteArr = episodesSiteRaw.split("\n");
-    let episodes_links: any = [];
+    let episodes_links: any[] = [];
 
     await episodesSiteArr.forEach((element) => {
       if (element.includes('<img class="info-aside-img" src="')) {
@@ -165,7 +165,7 @@ function Serie() {
       <Navbar></Navbar>
       <div id="content">
         <div id="ep_list">
-          {example_list.reverse().map((ep) => {
+          {episodesList.reverse().map((ep) => {
             if (ep[0] != "")
               return (
                 <div className="ep_data">

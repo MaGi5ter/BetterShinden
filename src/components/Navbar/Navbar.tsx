@@ -54,14 +54,28 @@ function Navbar() {
     ];
 
     if (searchString.length > 2) {
-      let response = await fetch(`api/title/search?query=${searchString}`, {
-        method: "GET",
-        headers: {
-          Accept: "application/json",
-        },
-      });
+      let data;
+      if (window.location.href == "https://shinden.pl") {
+        let response = await fetch(`/api/title/search?query=${searchString}`, {
+          method: "GET",
+          headers: {
+            Accept: "application/json",
+          },
+        });
+        data = await response.json();
+      } else {
+        let response = await fetch(
+          `https://shinden.pl/api/title/search?query=${searchString}`,
+          {
+            method: "GET",
+            headers: {
+              Accept: "application/json",
+            },
+          }
+        );
+        data = await response.json();
+      }
       setLoading(false);
-      const data = await response.json();
       setData(data);
       // return data;
       // return oshiresponse;
@@ -73,7 +87,7 @@ function Navbar() {
   return (
     <>
       <div id="navbar">
-        <h1 id="logo">BetterShinden</h1>
+        <h1 id="logo"> BetterShinden</h1>
         <div id="searchbar">
           <div className="srch">
             <input
