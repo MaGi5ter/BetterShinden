@@ -25,6 +25,11 @@
     border-radius: 50px;
   }
 
+  .srch {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
   #nav__buttons button:hover{
     background-color: #db4523;
     color: #d9d4c5;
@@ -37,6 +42,7 @@
   }
 
   .searc__bar {
+    justify-content: center;
     all:unset;
     width: 300px;
     background-color: #d9d4c5;
@@ -69,18 +75,27 @@
     padding: 0;
     background-color: #d9d4c5;
     color: #db4523;
+    border-radius: 10px;
   }
 
   .title_result {
     list-style: none;
     border-bottom: 2px solid #29282e;
-    margin-bottom: 10px ;
+    /* margin-bottom: 10px ; */
     padding: 5px;
+    padding-right: 10px;
     display: flex;
+  }
+
+  .title_result:hover { 
+    filter: brightness(50%);
+    background-color: #d9d4c5;
+    cursor: pointer;
   }
 
   .title_result img {
     width: 60px;
+    border-radius: 5px;
   }
 
   .title_content {
@@ -100,6 +115,11 @@
     margin: 0;
     margin-top: 5px;
     margin-left: 5px;
+  }
+
+  .unsetstylling {
+    color: none; /* blue colors for links too */
+    text-decoration: none; /* no underline */
   }
 
   

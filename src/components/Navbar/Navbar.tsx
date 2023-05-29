@@ -18,6 +18,10 @@ function Navbar() {
     title_url: string;
   }
 
+  function redirect(link: string) {
+    window.location.href = link;
+  }
+
   async function fetchAnimes(event: React.FormEvent<HTMLInputElement>) {
     //function fetches data about anime in seacrh bar from shinden api
     let searchString = event.currentTarget.value;
@@ -26,7 +30,8 @@ function Navbar() {
       //I used this as exapmple output bcs from my local server I am unable to fetch data, beacause of cors policy
       {
         title_id: "60113",
-        title: "Oshi no Ko",
+        title:
+          "Oshi no Ko awd awdaw adawdawd ultra długi naprawde jeszcze dluzzszy i jeszcze jeden",
         type: "Anime",
         kind: "TV",
         title_status: "Emitowane",
@@ -90,9 +95,12 @@ function Navbar() {
             {loading
               ? ""
               : data?.slice(0, 7).map((search_result) => {
-                  if (search_result.type == "Anime") {
+                  if (search_result.type === "Anime") {
                     return (
-                      <li className="title_result">
+                      <li
+                        className="title_result"
+                        onClick={() => redirect(search_result.title_url)}
+                      >
                         <img
                           src={`/res/images/225x350/${search_result.cover}.jpg`}
                           alt="COVER"

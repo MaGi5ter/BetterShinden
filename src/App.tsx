@@ -3,6 +3,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Index from "./pages/index";
 import Main from "./pages/main";
 import "./assets/style.css";
+import Serie from "./pages/serie";
 
 function App() {
   console.clear();
@@ -16,6 +17,7 @@ function App() {
         <Routes>
           <Route index element={<Index />}></Route>
           <Route path="/main" element={<Main />}></Route>
+          <Route path="/series/:id" element={<Serie />}></Route>
         </Routes>
       </BrowserRouter>
     </div>
