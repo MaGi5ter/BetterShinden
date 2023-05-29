@@ -1,10 +1,11 @@
 import React from "react";
+import Navbar from "../components/Navbar/Navbar";
 
 function Index() {
   return (
-    <div>
-      <h1>HELLOW INDEXs</h1>
-    </div>
+    <>
+      <Navbar></Navbar>
+    </>
   );
 }
 

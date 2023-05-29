@@ -12,13 +12,6 @@ function App() {
 
   return (
     <div>
-      {/* <style>
-        {`body {
-            margin: 0;
-            color: #333239;
-            background-color: #c7c7c7;
-          }`}
-      </style> */}
       <BrowserRouter>
         <Routes>
           <Route index element={<Index />}></Route>
