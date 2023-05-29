@@ -29,6 +29,395 @@ function Serie() {
     ["Matka i dzieci", "/episode/60113-oshi-no-ko/view/221891", 1],
   ];
 
+  let example_players = [
+    {
+      online_id: "574311",
+      player: "Dailymotion",
+      username: "",
+      user_id: "118604",
+      lang_audio: "jp",
+      lang_subs: "pl",
+      max_res: "1080p",
+      subs_author:
+        'Grupa: <a href="https://forum.shinden.pl/index.php?groups/translate/">ShindeSubs</a> | Tłumaczenie: <a href="https://shinden.pl/user/118604-voxten/">Voxten </a>',
+      added: "2019-04-06 22:30:50",
+      source: "https://shinden.pl/shindesubs",
+    },
+    {
+      online_id: "1369282",
+      player: "Cda",
+      username: "",
+      user_id: "258171",
+      lang_audio: "jp",
+      lang_subs: "pl",
+      max_res: "1080p",
+      subs_author: "Tłumacz: Kowren Korekta: qatil",
+      added: "2023-02-11 01:00:00",
+      source: "https://www.facebook.com/tlumaczenia.maou",
+    },
+    {
+      online_id: "1390281",
+      player: "Mega",
+      username: "",
+      user_id: "149230",
+      lang_audio: "jp",
+      lang_subs: "pl",
+      max_res: "1080p",
+      subs_author: "Jastrząb",
+      added: "2023-03-30 00:57:14",
+      source: "https://kny.wbijam.pl/pierwsza_seria-01.html",
+    },
+    {
+      online_id: "1135413",
+      player: "Gdrive",
+      username: "",
+      user_id: "314325",
+      lang_audio: "pl",
+      lang_subs: "",
+      max_res: "720p",
+      subs_author: "",
+      added: "2021-10-06 16:35:27",
+      source: "",
+    },
+    {
+      online_id: "1134411",
+      player: "Sibnet",
+      username: "",
+      user_id: "320808",
+      lang_audio: "jp",
+      lang_subs: "pl",
+      max_res: "720p",
+      subs_author: "Jastrząb",
+      added: "2021-10-03 16:15:44",
+      source: "https://kny.wbijam.pl/pierwsza_seria-01.html",
+    },
+    {
+      online_id: "867714",
+      player: "Gdrive",
+      username: "",
+      user_id: "288551",
+      lang_audio: "jp",
+      lang_subs: "pl",
+      max_res: "720p",
+      subs_author: "Askara",
+      added: "2020-11-28 18:51:23",
+      source: "https://animedesu.pl/",
+    },
+    {
+      online_id: "1409125",
+      player: "Dood",
+      username: "",
+      user_id: "93676",
+      lang_audio: "jp",
+      lang_subs: "pl",
+      max_res: "720p",
+      subs_author: "Jastrząb",
+      added: "2023-04-29 23:07:05",
+      source: "https://kny.wbijam.pl/pierwsza_seria-01.html",
+    },
+    {
+      online_id: "1407441",
+      player: "Cda",
+      username: "",
+      user_id: "61161",
+      lang_audio: "jp",
+      lang_subs: "pl",
+      max_res: "480p",
+      subs_author: "Askara",
+      added: "2023-04-28 00:14:40",
+      source: "https://desu-online.pl/anime/kimetsu-no-yaiba/",
+    },
+    {
+      online_id: "1401689",
+      player: "Streamsb",
+      username: "",
+      user_id: "93676",
+      lang_audio: "jp",
+      lang_subs: "pl",
+      max_res: "1080p",
+      subs_author: "Jastrząb",
+      added: "2023-04-18 12:11:31",
+      source: "https://kny.wbijam.pl/pierwsza_seria-01.html",
+    },
+    {
+      online_id: "1392699",
+      player: "Cda",
+      username: "",
+      user_id: "69915",
+      lang_audio: "jp",
+      lang_subs: "pl",
+      max_res: "1080p",
+      subs_author: "",
+      added: "2023-04-03 13:27:31",
+      source: "",
+    },
+    {
+      online_id: "1376704",
+      player: "Cda",
+      username: "",
+      user_id: "320808",
+      lang_audio: "jp",
+      lang_subs: "pl",
+      max_res: "1080p",
+      subs_author: "Jastrząb",
+      added: "2023-02-26 18:47:51",
+      source: "https://kny.wbijam.pl",
+    },
+    {
+      online_id: "1374417",
+      player: "Cda",
+      username: "",
+      user_id: "320808",
+      lang_audio: "jp",
+      lang_subs: "pl",
+      max_res: "1080p",
+      subs_author: "Jastrząb",
+      added: "2023-02-25 10:58:50",
+      source: "https://kny.wbijam.pl",
+    },
+    {
+      online_id: "1372824",
+      player: "Cda",
+      username: "",
+      user_id: "320808",
+      lang_audio: "jp",
+      lang_subs: "pl",
+      max_res: "1080p",
+      subs_author: "Jastrząb",
+      added: "2023-02-23 17:13:41",
+      source: "https://kny.wbijam.pl",
+    },
+    {
+      online_id: "1253530",
+      player: "Cda",
+      username: "",
+      user_id: "69915",
+      lang_audio: "jp",
+      lang_subs: "pl",
+      max_res: "1080p",
+      subs_author: "",
+      added: "2022-05-24 21:07:19",
+      source: "",
+    },
+    {
+      online_id: "1203036",
+      player: "Cda",
+      username: "",
+      user_id: "87735",
+      lang_audio: "jp",
+      lang_subs: "pl",
+      max_res: "1080p",
+      subs_author: "Jastrząb",
+      added: "2022-02-21 18:42:45",
+      source: "https://kny.wbijam.pl/pierwsza_seria.html",
+    },
+    {
+      online_id: "1186114",
+      player: "Cda",
+      username: "",
+      user_id: "71819",
+      lang_audio: "jp",
+      lang_subs: "pl",
+      max_res: "1080p",
+      subs_author: "Jastrząb",
+      added: "2022-01-29 17:31:49",
+      source: "https://kny.wbijam.pl/pierwsza_seria.html",
+    },
+    {
+      online_id: "1180472",
+      player: "Cda",
+      username: "",
+      user_id: "249306",
+      lang_audio: "jp",
+      lang_subs: "pl",
+      max_res: "1080p",
+      subs_author: "Jastrząb",
+      added: "2022-01-25 20:25:09",
+      source: "https://kny.wbijam.pl/pierwsza_seria.html",
+    },
+    {
+      online_id: "1178942",
+      player: "Cda",
+      username: "",
+      user_id: "326000",
+      lang_audio: "pl",
+      lang_subs: "",
+      max_res: "1080p",
+      subs_author: "Askara & Crimson Red",
+      added: "2022-01-23 16:32:20",
+      source: "https://animeni.pl/",
+    },
+    {
+      online_id: "1177695",
+      player: "Cda",
+      username: "",
+      user_id: "93676",
+      lang_audio: "jp",
+      lang_subs: "pl",
+      max_res: "1080p",
+      subs_author: "",
+      added: "2022-01-22 07:44:21",
+      source: "",
+    },
+    {
+      online_id: "1175805",
+      player: "Cda",
+      username: "",
+      user_id: "317685",
+      lang_audio: "jp",
+      lang_subs: "pl",
+      max_res: "1080p",
+      subs_author: "",
+      added: "2022-01-18 18:23:40",
+      source: "",
+    },
+    {
+      online_id: "1134412",
+      player: "Cda",
+      username: "",
+      user_id: "320808",
+      lang_audio: "jp",
+      lang_subs: "pl",
+      max_res: "1080p",
+      subs_author: "Jastrząb",
+      added: "2021-10-02 21:44:18",
+      source: "https://kny.wbijam.pl/pierwsza_seria-01.html",
+    },
+    {
+      online_id: "1131392",
+      player: "Cda",
+      username: "",
+      user_id: "308454",
+      lang_audio: "jp",
+      lang_subs: "pl",
+      max_res: "1080p",
+      subs_author: "",
+      added: "2021-09-23 08:13:37",
+      source: "",
+    },
+    {
+      online_id: "1112418",
+      player: "Cda",
+      username: "",
+      user_id: "221411",
+      lang_audio: "jp",
+      lang_subs: "pl",
+      max_res: "480p",
+      subs_author: "",
+      added: "2021-07-19 17:50:07",
+      source: "",
+    },
+    {
+      online_id: "973626",
+      player: "Mp4upload",
+      username: "",
+      user_id: "249306",
+      lang_audio: "jp",
+      lang_subs: "en",
+      max_res: "1080p",
+      subs_author: "LostYears",
+      added: "2021-01-26 19:33:34",
+      source:
+        "https://www12.9anime.to/watch/demon-slayer-kimetsu-no-yaiba.6q67/ep-1",
+    },
+    {
+      online_id: "923993",
+      player: "Dood",
+      username: "",
+      user_id: "325645",
+      lang_audio: "en",
+      lang_subs: "",
+      max_res: "1080p",
+      subs_author: "",
+      added: "2020-12-29 23:35:29",
+      source: "https://gogoanime.so/kimetsu-no-yaiba-dub-episode-1",
+    },
+    {
+      online_id: "923992",
+      player: "Mp4upload",
+      username: "",
+      user_id: "325645",
+      lang_audio: "en",
+      lang_subs: "",
+      max_res: "1080p",
+      subs_author: "",
+      added: "2020-12-29 23:35:26",
+      source: "https://gogoanime.so/kimetsu-no-yaiba-dub-episode-1",
+    },
+    {
+      online_id: "885051",
+      player: "Streamsb",
+      username: "",
+      user_id: "1",
+      lang_audio: "jp",
+      lang_subs: "en",
+      max_res: "1080p",
+      subs_author: "",
+      added: "2020-12-06 13:35:31",
+      source: "https://gogoanime.so/kimetsu-no-yaiba-episode-1",
+    },
+    {
+      online_id: "867716",
+      player: "Cda",
+      username: "",
+      user_id: "288551",
+      lang_audio: "jp",
+      lang_subs: "pl",
+      max_res: "720p",
+      subs_author: "Askara",
+      added: "2020-11-28 18:51:27",
+      source: "https://animedesu.pl/",
+    },
+    {
+      online_id: "802791",
+      player: "Cda",
+      username: "",
+      user_id: "240768",
+      lang_audio: "jp",
+      lang_subs: "",
+      max_res: "720p",
+      subs_author: "",
+      added: "2020-08-07 17:19:04",
+      source: "https://www.cda.pl/video/55783688a",
+    },
+    {
+      online_id: "574201",
+      player: "Mp4upload",
+      username: "",
+      user_id: "81739",
+      lang_audio: "jp",
+      lang_subs: "en",
+      max_res: "720p",
+      subs_author: "",
+      added: "2019-04-06 20:21:04",
+      source: "http://www.animerush.tv/Kimetsu-no-Yaiba-episode-1/",
+    },
+    {
+      online_id: "574190",
+      player: "Mp4upload",
+      username: "",
+      user_id: "81739",
+      lang_audio: "jp",
+      lang_subs: "en",
+      max_res: "360p",
+      subs_author: "",
+      added: "2019-04-06 19:39:02",
+      source: "http://www.animerush.tv/Kimetsu-no-Yaiba-episode-1/",
+    },
+    {
+      online_id: "1412929",
+      player: "Gdrive",
+      username: "",
+      user_id: "1",
+      lang_audio: "jp",
+      lang_subs: "pl",
+      max_res: "720p",
+      subs_author: "",
+      added: "2023-05-10 04:56:53",
+      source: "http://www.animezone.pl/odcinki-online/kimetsu-no-yaiba/1",
+    },
+  ];
+
   interface serieDataIn {
     description: string;
     thumbnail_url: string;
@@ -57,7 +446,7 @@ function Serie() {
     return data;
   }
 
-  if (loadingList == true) getEpisodesList();
+  // if (loadingList == true) getEpisodesList();
 
   async function getEpisodesList() {
     let full_url = "";
@@ -129,7 +518,7 @@ function Serie() {
     await episodesSiteArr.forEach((element) => {
       //if(element.includes('href')) console.log(element)
       if (element.includes('class="button active">')) {
-        console.log(element);
+        // console.log(element);
 
         let elementArr = element.split('"');
         episodes_links[episodes_links.length - 1].push(elementArr[1]);
@@ -160,22 +549,64 @@ function Serie() {
     console.log([episodes_links, serie_data]);
   }
 
+  async function loadPlayer(url: string) {
+    console.log(url);
+
+    let playersSiteRAW = await fetchRAW(`https://shinden.pl${url}`);
+    let playersArr: string[] = [];
+
+    let playersSiteRAWArr = playersSiteRAW.split("\n");
+
+    playersSiteRAWArr.forEach((element) => {
+      if (
+        element.includes('<td class="ep-buttons"><a href="#" id="player_data_')
+      ) {
+        // console.log(element);
+        element = element.replace(
+          '<td class="ep-buttons"><a href="#" id="player_data_',
+          ""
+        );
+        let elementsplit = element.split('"');
+        elementsplit[2] = elementsplit[2].replace(/&quot;/g, '"');
+
+        console.log(elementsplit[2]);
+        playersArr.push(JSON.parse(elementsplit[2]));
+      }
+    });
+
+    console.log(playersArr);
+  }
+
   return (
     <>
       <Navbar></Navbar>
       <div id="content">
         <div id="ep_list">
-          {episodesList.reverse().map((ep) => {
+          {example_list.reverse().map((ep) => {
             if (ep[0] != "")
               return (
-                <div className="ep_data">
+                <div className="ep_data" onClick={(e) => loadPlayer(ep[1])}>
                   <div className="ep_num">{ep[2]}</div>
                   <div className="ep_titl">{ep[0]}</div>
                 </div>
               );
           })}
         </div>
-        <div id="player">here</div>
+        <div id="player">
+          <div id="_video">awd</div>
+          <div id="players_list">
+            {example_players.map((player) => {
+              return (
+                <div className="player_info">
+                  <div className="player_quality">
+                    <b> {player.max_res}</b>
+                  </div>
+                  <div className="player_platform">{player.player}</div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
       </div>
     </>
   );

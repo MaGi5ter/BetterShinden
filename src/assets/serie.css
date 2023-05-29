@@ -12,7 +12,11 @@
 }
 
 #player {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     width: 100%;
+    padding: 20px;
 }
 
 .ep_data {
@@ -25,6 +29,7 @@
 .ep_data:hover {
     background-color: #d9d4c5;
     color: #29282e;
+    border-radius: 5px;
 }
 
 .ep_num {
@@ -36,3 +41,39 @@
 }
 
 /* EVERYTHING UP IS FOR LIST OF EPISODES */
+
+#_video {
+    /* border: 5px black solid; */
+    height: 600px;
+}
+
+#players_list {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    /* border: 5px black solid; */
+}
+
+.player_info {
+    color: #29282e;
+    background-color: #d9d4c5;
+    padding: 2px;
+    margin: 2px;
+    font-weight: 400;
+    display: flex;
+    font-size: small;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.player_quality {
+    padding-right: 3px;
+}
+
+.player_info:hover {
+    background-color: #db4523;
+}
+
+.ready {
+    background-color: rgb(79, 153, 79);
+}
