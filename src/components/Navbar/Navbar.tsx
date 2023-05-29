@@ -49,17 +49,16 @@ function Navbar() {
     ];
 
     if (searchString.length > 2) {
-      //   let response = await fetch(`api/title/search?query=${searchString}`, {
-      //     method: "GET",
-      //     headers: {
-      //       Accept: "application/json",
-      //     },
-      //   });
-      setData(oshiresponse);
+      let response = await fetch(`api/title/search?query=${searchString}`, {
+        method: "GET",
+        headers: {
+          Accept: "application/json",
+        },
+      });
       setLoading(false);
-      //   const data = await response.json();
-      //   console.log(data);
-      //   return data;
+      const data = await response.json();
+      setData(data);
+      // return data;
       // return oshiresponse;
     } else if (searchString.length < 3) {
       setLoading(true);
@@ -95,7 +94,7 @@ function Navbar() {
                     return (
                       <li className="title_result">
                         <img
-                          src={`https://shinden.pl/res/images/225x350/${search_result.cover}.jpg`}
+                          src={`/res/images/225x350/${search_result.cover}.jpg`}
                           alt="COVER"
                         />
                         <div className="title_content">
