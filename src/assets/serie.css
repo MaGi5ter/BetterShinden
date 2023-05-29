@@ -1,0 +1,38 @@
+#content {
+    display: flex;
+    border-bottom: #d9d4c5 solid 2px;
+    height: 600px;
+}
+
+#ep_list {
+    max-width: 500px;
+    border-right: #d9d4c5 solid 2px;
+    padding: 10px;
+    overflow-y: scroll;
+}
+
+#player {
+    width: 100%;
+}
+
+.ep_data {
+    display: flex;
+    padding: 2px;
+    cursor: pointer;
+    font-weight: 500;
+}
+
+.ep_data:hover {
+    background-color: #d9d4c5;
+    color: #29282e;
+}
+
+.ep_num {
+    padding: 5px;
+}
+
+.ep_titl {
+    padding: 5px;
+}
+
+/* EVERYTHING UP IS FOR LIST OF EPISODES */

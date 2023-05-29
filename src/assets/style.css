@@ -8,3 +8,24 @@ body {
     background-color: #29282e;
     overflow-x: hidden;
   }
+
+/* width */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #d9d4c5; 
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #db4523; 
+  border-radius: 5px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #7e2c1a; 
+}

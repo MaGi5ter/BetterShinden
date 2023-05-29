@@ -11,6 +11,24 @@ function Serie() {
   const [serieData, setSerieData] = useState<serieDataIn>();
   const [loadingList, setLoadingList] = useState(true);
 
+  let example_list: any = [
+    ["", "/episode/60113-oshi-no-ko/view/221901", 11],
+    ["", "/episode/60113-oshi-no-ko/view/221900", 10],
+    ["", "/episode/60113-oshi-no-ko/view/221899", 9],
+    ["", "/episode/60113-oshi-no-ko/view/221898", 8],
+    ["Szum", "/episode/60113-oshi-no-ko/view/221897", 7],
+    ["Egosurfing", "/episode/60113-oshi-no-ko/view/221896", 6],
+    ["Randkowe reality show", "/episode/60113-oshi-no-ko/view/221895", 5],
+    ["Aktorzy", "/episode/60113-oshi-no-ko/view/221894", 4],
+    [
+      "Telewizyjna drama na podstawie mangi",
+      "/episode/60113-oshi-no-ko/view/221893",
+      3,
+    ],
+    ["Trzecia opcja", "/episode/60113-oshi-no-ko/view/221892", 2],
+    ["Matka i dzieci", "/episode/60113-oshi-no-ko/view/221891", 1],
+  ];
+
   interface serieDataIn {
     description: string;
     thumbnail_url: string;
@@ -38,7 +56,9 @@ function Serie() {
     const data = await response.text();
     return data;
   }
-  getEpisodesList();
+
+  //if (loadingList == true) getEpisodesList();
+
   async function getEpisodesList() {
     let full_url = "";
     let serie_data = {
@@ -104,13 +124,23 @@ function Serie() {
       }
     });
 
+    let skipped = false;
     let episode_number = 1;
     await episodesSiteArr.forEach((element) => {
       //if(element.includes('href')) console.log(element)
       if (element.includes('class="button active">')) {
+        console.log(element);
+
         let elementArr = element.split('"');
-        episodes_links.push([elementArr[1]]);
+        episodes_links[episodes_links.length - 1].push(elementArr[1]);
         episode_number = episode_number + 1;
+      } else if (element.includes("ep-title")) {
+        if (skipped) {
+          element = element.replace('<td class="ep-title">', "");
+          element = element.replace("</td>", "");
+
+          episodes_links.push([element]);
+        } else skipped = true;
       }
     });
 
@@ -133,7 +163,20 @@ function Serie() {
   return (
     <>
       <Navbar></Navbar>
-      <div id="ep_list"></div>
+      <div id="content">
+        <div id="ep_list">
+          {example_list.reverse().map((ep) => {
+            if (ep[0] != "")
+              return (
+                <div className="ep_data">
+                  <div className="ep_num">{ep[2]}</div>
+                  <div className="ep_titl">{ep[0]}</div>
+                </div>
+              );
+          })}
+        </div>
+        <div id="player">here</div>
+      </div>
     </>
   );
 }
