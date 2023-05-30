@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import Navbar from "../components/Navbar/Navbar";
 import "../assets/serie.css";
 import $ from "jquery";
+import parse from "html-react-parser";
 
 function Serie() {
   const params = useParams();
@@ -441,7 +442,6 @@ function Serie() {
     online_id: string;
     iframe: string;
   }
-
   interface serieDataIn {
     description: string;
     thumbnail_url: string;
@@ -630,11 +630,6 @@ function Serie() {
     loadPlayer(playersArr[0].online_id, basic);
   }
 
-  // useEffect(() => {
-  //   console.log(storageBasic);
-  //   loadPlayer(playersList[0].online_id);
-  // }, [storageBasic, playersList]);
-
   function handleActivePlayer(index: number, online_id: string) {
     console.log(index, online_id);
     setActivePlayer([index, online_id]);
@@ -684,18 +679,24 @@ function Serie() {
 
     console.log("displayPlayer", id, loadedPlayers);
     if (id === -1) {
-      return <>Odtwarzacz ładuje sie</>;
-    } else
       return (
-        <div
-          dangerouslySetInnerHTML={{
-            __html: `${loadedPlayers[id].iframe.replace(
-              "iframe",
-              'iframe id="video_player"'
-            )}`,
-          }}
+        <img
+          id="loading_gif"
+          src="https://cdn.discordapp.com/attachments/773904529971871765/1113162814425661440/5_second_countdown_timer_with_beeps_classic_5_4_3_2_1.gif"
+          alt="Odtwarzacz ładuje sie"
         />
       );
+    } else {
+      let ifr = parse(loadedPlayers[id].iframe);
+      console.log("wtf");
+      console.log("here ifr pars", ifr);
+      let src_ = ifr[1].props.src;
+      console.log(src_);
+      return (
+        // <video src={src_}></video>
+        <iframe id="video_player" src={src_} allowFullScreen />
+      );
+    }
     //<>{loadedPlayers[id].iframe}</>;
   }
 
