@@ -76,6 +76,7 @@
     background-color: #d9d4c5;
     color: #db4523;
     border-radius: 10px;
+    z-index: 100;
   }
 
   .title_result {
@@ -85,12 +86,12 @@
     padding: 5px;
     padding-right: 10px;
     display: flex;
+    cursor: pointer;
   }
 
   .title_result:hover { 
     filter: brightness(50%);
     background-color: #d9d4c5;
-    cursor: pointer;
   }
 
   .title_result img {

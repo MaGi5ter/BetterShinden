@@ -1,15 +1,21 @@
-import { stringify } from "querystring";
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
-import { Route, Link, Routes, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import Navbar from "../components/Navbar/Navbar";
 import "../assets/serie.css";
+import $ from "jquery";
 
 function Serie() {
   const params = useParams();
+
   const [episodesList, setEpisodesList] = useState(["Loading", "", "0"]);
+  const [activeEpisode, setActiveEpisode] = useState(0);
+  const [activePlayer, setActivePlayer] = useState([0, ""]);
   const [serieData, setSerieData] = useState<serieDataIn>();
   const [loadingList, setLoadingList] = useState(true);
+  const [playersList, setPlayersList] = useState<playerData[]>([]);
+  const [storageBasic, setStorageBasic] = useState<string>("");
+  const [loadedPlayers, setLoadedPlayers] = useState<loadedPlayerData[]>([]);
 
   let example_list: any = [
     ["", "/episode/60113-oshi-no-ko/view/221901", 11],
@@ -418,6 +424,24 @@ function Serie() {
     },
   ];
 
+  interface playerData {
+    online_id: string;
+    player: string;
+    username: string;
+    user_id: string;
+    lang_audio: string;
+    lang_subs: string;
+    max_res: string;
+    subs_author: string;
+    added: string;
+    source: string;
+  }
+
+  interface loadedPlayerData {
+    online_id: string;
+    iframe: string;
+  }
+
   interface serieDataIn {
     description: string;
     thumbnail_url: string;
@@ -425,6 +449,21 @@ function Serie() {
     rating: string;
     url: string;
     serie_name: string;
+  }
+
+  function fetchShindenApi(url: string) {
+    return new Promise<string>((resolve) => {
+      $.ajax({
+        type: "GET",
+        url: url,
+        xhrFields: {
+          withCredentials: true,
+        },
+        success: function (result) {
+          resolve(result);
+        },
+      });
+    });
   }
 
   function getID(params) {
@@ -446,7 +485,7 @@ function Serie() {
     return data;
   }
 
-  // if (loadingList == true) getEpisodesList();
+  if (loadingList == true) getEpisodesList();
 
   async function getEpisodesList() {
     let full_url = "";
@@ -543,19 +582,22 @@ function Serie() {
     }
 
     setLoadingList(false);
-    setEpisodesList(episodes_links);
+    setEpisodesList(episodes_links.reverse());
     setSerieData(serie_data);
+    loadPlayersList(episodes_links[0][1]); //FIRST ONE NEEDS TO BE DISPLAYED AUTOMATICCLY
 
     console.log([episodes_links, serie_data]);
   }
 
-  async function loadPlayer(url: string) {
+  async function loadPlayersList(url: string) {
     console.log(url);
 
     let playersSiteRAW = await fetchRAW(`https://shinden.pl${url}`);
-    let playersArr: string[] = [];
+    let playersArr: playerData[] = [];
 
     let playersSiteRAWArr = playersSiteRAW.split("\n");
+
+    let basic: string = "";
 
     playersSiteRAWArr.forEach((element) => {
       if (
@@ -569,12 +611,87 @@ function Serie() {
         let elementsplit = element.split('"');
         elementsplit[2] = elementsplit[2].replace(/&quot;/g, '"');
 
-        console.log(elementsplit[2]);
-        playersArr.push(JSON.parse(elementsplit[2]));
+        let playersdata: playerData = JSON.parse(elementsplit[2]);
+
+        // console.log(elementsplit[2]);
+        playersArr.push(playersdata);
+      } else if (element.includes("_Storage.basic")) {
+        element = element.replace(/ /g, "");
+        element = element.replace("_Storage.basic='", "");
+        element = element.replace("';", "");
+
+        basic = element;
+        setStorageBasic(element);
       }
     });
 
-    console.log(playersArr);
+    setActivePlayer([0, ""]);
+    setPlayersList(playersArr);
+    loadPlayer(playersArr[0].online_id, basic);
+  }
+
+  // useEffect(() => {
+  //   console.log(storageBasic);
+  //   loadPlayer(playersList[0].online_id);
+  // }, [storageBasic, playersList]);
+
+  function handleActivePlayer(index: number, online_id: string) {
+    console.log(index, online_id);
+    setActivePlayer([index, online_id]);
+  }
+
+  async function loadPlayer(online_id: string, storage_basic: string = "") {
+    console.log(activePlayer);
+
+    let id = loadedPlayers.findIndex((el) => el.online_id == online_id);
+
+    let storage = storageBasic != "" ? storageBasic : storage_basic;
+
+    if (id != -1) return;
+    await fetchShindenApi(
+      //shinden api first responses with timeout in ms , and after that timeout u can for few seconds get player data, in most cases it is 5sec
+      `https://api4.shinden.pl/xhr/${online_id}/player_load?auth=${storage}`
+    ).then((time) => {
+      let timeout = Number(time);
+      setTimeout(async () => {
+        await fetchShindenApi(
+          `https://api4.shinden.pl/xhr/${online_id}/player_show?auth=${storage}&width=765&height=-1`
+        ).then((data) => {
+          let dataArr = data.split("\n");
+          for (const element of dataArr) {
+            if (element.includes("<iframe ")) {
+              // console.log(element);
+              let loaded = loadedPlayers;
+              loaded.push({
+                online_id: online_id,
+                iframe: element,
+              });
+              console.log(loaded);
+              console.log(activePlayer);
+              console.log(playersList);
+              setLoadedPlayers(loaded.slice());
+            }
+          }
+        });
+      }, timeout * 1000);
+    });
+  }
+
+  function displayPlayer() {
+    let id = loadedPlayers.findIndex(
+      (el) => el.online_id == playersList[activePlayer[0]].online_id
+    );
+
+    console.log("displayPlayer", id, loadedPlayers);
+    if (id === -1) {
+      return <>Odtwarzacz ładuje sie</>;
+    } else
+      return (
+        <div
+          dangerouslySetInnerHTML={{ __html: `${loadedPlayers[id].iframe}` }}
+        />
+      );
+    //<>{loadedPlayers[id].iframe}</>;
   }
 
   return (
@@ -582,10 +699,18 @@ function Serie() {
       <Navbar></Navbar>
       <div id="content">
         <div id="ep_list">
-          {example_list.reverse().map((ep) => {
+          {episodesList.map((ep, index) => {
             if (ep[0] != "")
               return (
-                <div className="ep_data" onClick={(e) => loadPlayer(ep[1])}>
+                <div
+                  className={
+                    index == activeEpisode ? "ep_data active_ep" : "ep_data"
+                  }
+                  onClick={(e) => {
+                    setActiveEpisode(index);
+                    loadPlayersList(ep[1]);
+                  }}
+                >
                   <div className="ep_num">{ep[2]}</div>
                   <div className="ep_titl">{ep[0]}</div>
                 </div>
@@ -593,11 +718,21 @@ function Serie() {
           })}
         </div>
         <div id="player">
-          <div id="_video">awd</div>
+          <div id="_video">{displayPlayer()}</div>
           <div id="players_list">
-            {example_players.map((player) => {
+            {playersList.map((player, index) => {
               return (
-                <div className="player_info">
+                <div
+                  className={
+                    index == activePlayer[0]
+                      ? "player_info active_player"
+                      : "player_info"
+                  }
+                  onClick={(e) => {
+                    handleActivePlayer(index, `${player.online_id}`);
+                    loadPlayer(player.online_id);
+                  }}
+                >
                   <div className="player_quality">
                     <b> {player.max_res}</b>
                   </div>

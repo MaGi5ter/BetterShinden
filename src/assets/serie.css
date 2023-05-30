@@ -77,3 +77,13 @@
 .ready {
     background-color: rgb(79, 153, 79);
 }
+
+.active_ep {
+    background-color: #d9d4c5;
+    color: #29282e;
+    border-radius: 5px;
+}
+
+.active_player {
+    background-color: #db4523;
+}
