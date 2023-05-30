@@ -688,7 +688,12 @@ function Serie() {
     } else
       return (
         <div
-          dangerouslySetInnerHTML={{ __html: `${loadedPlayers[id].iframe}` }}
+          dangerouslySetInnerHTML={{
+            __html: `${loadedPlayers[id].iframe.replace(
+              "iframe",
+              'iframe id="video_player"'
+            )}`,
+          }}
         />
       );
     //<>{loadedPlayers[id].iframe}</>;
