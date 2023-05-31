@@ -80,6 +80,8 @@ function Serie() {
 
     let serie_data = getSerieData(episodesSiteArr);
 
+    console.log(serie_data);
+
     let episodes_links: any[] = [];
     let skipped = false;
     let episode_number = 1;

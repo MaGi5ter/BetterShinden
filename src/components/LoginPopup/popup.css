@@ -1,6 +1,6 @@
 #popup_box {
     position: absolute;
-    z-index: 100;
+    z-index: 102;
     width: 100vw;
     height: 100vh;
     background-color: rgba(217, 212, 197, 0.493);

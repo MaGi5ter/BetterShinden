@@ -9,17 +9,12 @@ interface Prop {
   close: closeFunction;
 }
 
-function click(data: string) {
-  console.log(data);
-}
-
 function Popup(props: Prop) {
   const [check, setCheck] = useState(true);
 
   return props.trigger ? (
     <div id="popup_box">
       <form action="/main/0/login" method="POST" id="popup">
-        <div className="close">Zamknij</div>
         <h2>Zaloguj się</h2>
         <div className="form-element">
           <label>Login:</label>

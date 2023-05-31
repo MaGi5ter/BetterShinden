@@ -6,7 +6,7 @@ import "./navbar.css";
 function Navbar() {
   const [data, setData] = useState<animeData[] | []>();
   const [loading, setLoading] = useState(true);
-  const [showPopup, setShowPopup] = useState(true);
+  const [showPopup, setShowPopup] = useState(false);
 
   interface animeData {
     title_id: string;

@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useParams } from "react-router-dom";
 
 import Navbar from "../components/Navbar/Navbar";
+import LoginError from "../components/errorHandler/loginError";
 import { player } from "../components/Player/Player";
 import { fetchRAW, loadPlayer } from "../assets/scripts/dataFetchScripts";
 import { getSerieData } from "../assets/scripts/dataExtracting";
@@ -18,6 +19,7 @@ function Title() {
   const [playersList, setPlayersList] = useState<playerData[]>([]);
   const [storageBasic, setStorageBasic] = useState<string>("");
   const [loadedPlayers, setLoadedPlayers] = useState<loadedPlayerData[]>([]);
+  const [error_, setError] = useState(false);
 
   interface playerData {
     online_id: string;
@@ -79,6 +81,8 @@ function Title() {
 
     let serie_data = getSerieData(episodesSiteArr);
 
+    console.log(serie_data);
+
     let episodes_links: any[] = [];
     let skipped = false;
     let episode_number = 1;
@@ -109,17 +113,42 @@ function Title() {
       i += 1;
     }
 
+    let corrected_links = checkCorrect(episodes_links);
+
+    console.log(corrected_links);
+
+    if (corrected_links[0] == undefined) {
+      setError(true);
+      return;
+    }
+
     setLoadingList(false);
-    setEpisodesList(episodes_links.reverse());
+    setEpisodesList(corrected_links);
     setSerieData(serie_data);
     console.log(episodes_links);
-    loadPlayersList(episodes_links[0][1]); //FIRST ONE NEEDS TO BE DISPLAYED AUTOMATICCLY
+    loadPlayersList(corrected_links[0][1]); //FIRST ONE NEEDS TO BE DISPLAYED AUTOMATICCLY
 
     console.log([episodes_links, serie_data]);
   }
 
+  function checkCorrect(episodesArr: any[]) {
+    let output: any[] = [];
+
+    episodesArr.forEach((episodeData) => {
+      if (episodeData[1] == undefined) return;
+      else output.push(episodeData);
+    });
+
+    return output.reverse();
+  }
+
   async function loadPlayersList(url: string) {
     console.log("Player List", url);
+
+    if (url == undefined) {
+      setError(true);
+      return;
+    }
 
     let playersSiteRAW = await fetchRAW(`https://shinden.pl${url}`);
     let playersArr: playerData[] = [];
@@ -159,10 +188,17 @@ function Title() {
     handleLoadPlayer(playersArr[0].online_id, basic, loadedPlayers);
   }
 
+  function handleError() {
+    error_ ? setError(false) : setError(true);
+  }
+
+  //NEXT UPDATE SPLIT RETURN IN TO COMPONENTS
+
   return (
     <>
       <Navbar></Navbar>
       <div id="content">
+        <LoginError trigger={error_}></LoginError>
         <div id="ep_list">
           {episodesList.map((ep, index) => {
             if (ep[0] != "")
