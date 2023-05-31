@@ -4,6 +4,7 @@ import Index from "./pages/index";
 import Main from "./pages/main";
 import "./assets/style.css";
 import Serie from "./pages/serie";
+import Title from "./pages/titles";
 
 function App() {
   console.clear();
@@ -18,6 +19,7 @@ function App() {
           <Route index element={<Index />}></Route>
           <Route path="/main" element={<Main />}></Route>
           <Route path="/series/:id" element={<Serie />}></Route>
+          <Route path="/titles/:id" element={<Title />}></Route>
         </Routes>
       </BrowserRouter>
     </div>

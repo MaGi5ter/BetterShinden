@@ -7,7 +7,7 @@ import { fetchRAW, loadPlayer } from "../assets/scripts/dataFetchScripts";
 import { getSerieData } from "../assets/scripts/dataExtracting";
 import "../assets/serie.css";
 
-function Serie() {
+function Title() {
   const params = useParams();
 
   const [episodesList, setEpisodesList] = useState(["Loading", "", "0"]);
@@ -67,14 +67,13 @@ function Serie() {
     loadedPlayers: loadedPlayerData[]
   ) {
     let newLoadedList = await loadPlayer(online_id, storage, loadedPlayers);
-    console.log("new LIST", newLoadedList);
     setLoadedPlayers(newLoadedList.slice());
   }
 
   if (loadingList == true) getEpisodesList(getID(params.id));
 
   async function getEpisodesList(id: number) {
-    let full_url = `https://shinden.pl/series/${id}/all-episodes`;
+    let full_url = `https://shinden.pl/titles/${id}/all-episodes`;
     let episodesSiteRaw = await fetchRAW(full_url);
     let episodesSiteArr = episodesSiteRaw.split("\n");
 
@@ -113,13 +112,14 @@ function Serie() {
     setLoadingList(false);
     setEpisodesList(episodes_links.reverse());
     setSerieData(serie_data);
+    console.log(episodes_links);
     loadPlayersList(episodes_links[0][1]); //FIRST ONE NEEDS TO BE DISPLAYED AUTOMATICCLY
 
     console.log([episodes_links, serie_data]);
   }
 
   async function loadPlayersList(url: string) {
-    console.log(url);
+    console.log("Player List", url);
 
     let playersSiteRAW = await fetchRAW(`https://shinden.pl${url}`);
     let playersArr: playerData[] = [];
@@ -218,4 +218,4 @@ function Serie() {
   );
 }
 
-export default Serie;
+export default Title;

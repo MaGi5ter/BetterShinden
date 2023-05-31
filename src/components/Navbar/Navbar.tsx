@@ -1,10 +1,12 @@
 import React from "react";
 import { useState } from "react";
+import Popup from "../LoginPopup/popup";
 import "./navbar.css";
 
 function Navbar() {
   const [data, setData] = useState<animeData[] | []>();
   const [loading, setLoading] = useState(true);
+  const [showPopup, setShowPopup] = useState(true);
 
   interface animeData {
     title_id: string;
@@ -22,36 +24,13 @@ function Navbar() {
     window.location.href = link;
   }
 
+  function handlePopup() {
+    showPopup ? setShowPopup(false) : setShowPopup(true);
+  }
+
   async function fetchAnimes(event: React.FormEvent<HTMLInputElement>) {
     //function fetches data about anime in seacrh bar from shinden api
     let searchString = event.currentTarget.value;
-
-    let oshiresponse: any[] = [
-      //I used this as exapmple output bcs from my local server I am unable to fetch data, beacause of cors policy
-      {
-        title_id: "60113",
-        title:
-          "Oshi no Ko awd awdaw adawdawd ultra długi naprawde jeszcze dluzzszy i jeszcze jeden",
-        type: "Anime",
-        kind: "TV",
-        title_status: "Emitowane",
-        cover: 364583,
-        premiere_date: "12.04.2023",
-        other_to: "<em>Oshi</em> no <em>Ko</em>",
-        title_url: "https://shinden.pl/series/60113-oshi-no-ko",
-      },
-      {
-        title_id: "57764",
-        title: "Oshi no Ko",
-        type: "Manga",
-        kind: "Manga",
-        title_status: "Publikowana",
-        cover: 326117,
-        premiere_date: "23.04.2020",
-        other_to: "<em>Oshi</em> no <em>Ko</em>",
-        title_url: "https://shinden.pl/manga/57764-oshi-no-ko",
-      },
-    ];
 
     if (searchString.length > 2) {
       let data;
@@ -77,8 +56,6 @@ function Navbar() {
       }
       setLoading(false);
       setData(data);
-      // return data;
-      // return oshiresponse;
     } else if (searchString.length < 3) {
       setLoading(true);
     }
@@ -86,6 +63,7 @@ function Navbar() {
 
   return (
     <>
+      <Popup trigger={showPopup} close={handlePopup}></Popup>
       <div id="navbar">
         <h1 id="logo"> BetterShinden</h1>
         <div id="searchbar">
@@ -131,7 +109,7 @@ function Navbar() {
         </div>
         <div id="nav__buttons">
           <a href="#">
-            <button>Logowanie</button>
+            <button onClick={(e) => handlePopup()}>Logowanie</button>
           </a>
         </div>
       </div>
