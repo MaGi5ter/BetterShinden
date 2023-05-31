@@ -1,11 +1,16 @@
 #content {
     display: flex;
+    flex-direction: column;
     margin-top: 50px;
     margin-bottom: 100px;
     max-width: 1800px;
     margin-left: auto;
     margin-right: auto;
     /* height: 600px; */
+}
+
+#player_and_ep_list{
+    display: flex;
 }
 
 #loading_gif {
@@ -37,6 +42,7 @@
 #video_player {
     width: 100%;
     height: 600px;
+    border: none;
     
 }
 
@@ -114,6 +120,9 @@
 
 @media only screen and (max-width: 960px){
     #content {
+        flex-direction: column;
+    }
+    #player_and_ep_list{
         flex-direction: column;
     }
     #player {

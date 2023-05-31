@@ -1,0 +1,18 @@
+#serie_info_box {
+    margin-top: 20px;
+    display: flex;
+}
+
+.title {
+    margin: 10px;
+    margin-top: 5px;
+}
+
+.description {
+    margin-left: 10px;
+    max-width: 750px;
+}
+
+.serie_thumbnail {
+    max-width: 225px;
+}
