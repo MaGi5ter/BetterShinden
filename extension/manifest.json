@@ -1,0 +1,29 @@
+{
+    "manifest_version" : 3,
+    "name" : "BetterShinden",
+    "version": "1.0.0",
+    "author" : "MaGi5ter",
+    "permissions": ["declarativeNetRequest", "declarativeNetRequestFeedback"],
+    "host_permissions": [
+        "https://www.shinden.pl/*"
+      ],
+    "content_scripts": [
+        {
+            "run_at": "document_end",
+            "matches": ["https://shinden.pl/*"],
+            "js": ["content.js"]
+        }
+    ],
+    "declarative_net_request": {
+        "rule_resources": [
+          {
+            "id": "ruleset_1",
+            "enabled": true,
+            "path": "rules.json"
+          }
+        ]
+    },
+    "background": {
+        "service_worker": "service_worker.js"
+    }
+}
