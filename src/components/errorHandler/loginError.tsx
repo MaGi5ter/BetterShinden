@@ -12,8 +12,8 @@ function LoginError(props: Prop) {
       <div id="popup">
         <h2>Błąd podczas ładowania odtwarzaczy</h2>
         <p>
-          Upewnij się że jesteś zalogowany na stronie ponieważ jesteś na
-          shinden.pl/titles oznacza to że musisz być zalogowany aby oglądać
+          Spróbuj odświeżyć stronę, oraz upewnij się że jesteś zalogowany na
+          shindenie, niektóre serie wymagają bycia zalogowanym aby je wyświetlić
         </p>
       </div>
     </div>

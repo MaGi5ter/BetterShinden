@@ -1,13 +1,18 @@
 import { useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useLocation } from "react-router-dom";
 
 import Navbar from "../components/Navbar/Navbar";
+import LoginError from "../components/errorHandler/loginError";
 import { player } from "../components/Player/Player";
 import { fetchRAW, loadPlayer } from "../assets/scripts/dataFetchScripts";
-import { getSerieData } from "../assets/scripts/dataExtracting";
+import {
+  getSerieData,
+  getEpisodesData,
+  getPlayersData,
+} from "../assets/scripts/dataExtracting";
 import "../assets/serie.css";
 
-function Serie() {
+function SeriePage() {
   const params = useParams();
 
   const [episodesList, setEpisodesList] = useState(["Loading", "", "0"]);
@@ -18,6 +23,7 @@ function Serie() {
   const [playersList, setPlayersList] = useState<playerData[]>([]);
   const [storageBasic, setStorageBasic] = useState<string>("");
   const [loadedPlayers, setLoadedPlayers] = useState<loadedPlayerData[]>([]);
+  const [error_, setError] = useState(false);
 
   interface playerData {
     online_id: string;
@@ -61,109 +67,86 @@ function Serie() {
     setActivePlayer([index, online_id]);
   }
 
+  function checkCorrect(episodesArr: any[]) {
+    let output: any[] = [];
+    episodesArr.forEach((episodeData) => {
+      if (episodeData[1] == undefined) return;
+      else output.push(episodeData);
+    });
+
+    return output.reverse();
+  }
+
   async function handleLoadPlayer(
     online_id: string,
     storage: string,
     loadedPlayers: loadedPlayerData[]
   ) {
     let newLoadedList = await loadPlayer(online_id, storage, loadedPlayers);
-    console.log("new LIST", newLoadedList);
     setLoadedPlayers(newLoadedList.slice());
   }
 
-  if (loadingList == true) getEpisodesList(getID(params.id));
+  if (loadingList == true) {
+    let currentRoute = useLocation();
+    let route = currentRoute.pathname.includes("titles") ? "titles" : "series";
+    getEpisodesList(getID(params.id), route);
+  }
 
-  async function getEpisodesList(id: number) {
-    let full_url = `https://shinden.pl/series/${id}/all-episodes`;
+  async function getEpisodesList(id: number, route: string) {
+    let full_url = `https://shinden.pl/${route}/${id}/all-episodes`;
     let episodesSiteRaw = await fetchRAW(full_url);
     let episodesSiteArr = episodesSiteRaw.split("\n");
 
     let serie_data = getSerieData(episodesSiteArr);
+    let episodesData = getEpisodesData(episodesSiteArr);
 
-    console.log(serie_data);
+    serie_data.episode_count = episodesData.episodesNumber;
+    let corrected_links = checkCorrect(episodesData.episodesData);
 
-    let episodes_links: any[] = [];
-    let skipped = false;
-    let episode_number = 1;
-    await episodesSiteArr.forEach((element) => {
-      //if(element.includes('href')) console.log(element)
-      if (element.includes('class="button active">')) {
-        // console.log(element);
-
-        let elementArr = element.split('"');
-        episodes_links[episodes_links.length - 1].push(elementArr[1]);
-        episode_number = episode_number + 1;
-      } else if (element.includes("ep-title")) {
-        if (skipped) {
-          element = element.replace('<td class="ep-title">', "");
-          element = element.replace("</td>", "");
-
-          episodes_links.push([element]);
-        } else skipped = true;
-      }
-    });
-
-    serie_data.episode_count = episode_number - 1;
-
-    let i = 0; //WHILE RETURNS A LIST OF EPISOED AND LINKS WITH NUMBER OF EPISODES
-    while (episode_number - i > 1) {
-      // console.log(episode_number - (i+1),episodes_links[i])
-      episodes_links[i].push(episode_number - (i + 1));
-      i += 1;
+    if (corrected_links[0] == undefined) {
+      setError(true);
+      return;
     }
 
     setLoadingList(false);
-    setEpisodesList(episodes_links.reverse());
+    setEpisodesList(corrected_links);
     setSerieData(serie_data);
-    loadPlayersList(episodes_links[0][1]); //FIRST ONE NEEDS TO BE DISPLAYED AUTOMATICCLY
-
-    console.log([episodes_links, serie_data]);
+    loadPlayersList(corrected_links[0][1]); //FIRST ONE NEEDS TO BE DISPLAYED AUTOMATICALLY
   }
 
-  async function loadPlayersList(url: string) {
-    console.log(url);
-
-    let playersSiteRAW = await fetchRAW(`https://shinden.pl${url}`);
-    let playersArr: playerData[] = [];
-
-    let playersSiteRAWArr = playersSiteRAW.split("\n");
-
-    let basic: string = "";
-
-    playersSiteRAWArr.forEach((element) => {
-      if (
-        element.includes('<td class="ep-buttons"><a href="#" id="player_data_')
-      ) {
-        // console.log(element);
-        element = element.replace(
-          '<td class="ep-buttons"><a href="#" id="player_data_',
-          ""
-        );
-        let elementsplit = element.split('"');
-        elementsplit[2] = elementsplit[2].replace(/&quot;/g, '"');
-
-        let playersdata: playerData = JSON.parse(elementsplit[2]);
-
-        // console.log(elementsplit[2]);
-        playersArr.push(playersdata);
-      } else if (element.includes("_Storage.basic")) {
+  async function getStorageBasic() {
+    let rawMainArr = (await fetchRAW(`https://shinden.pl`)).split("\n");
+    let storageBasic: string = "";
+    rawMainArr.forEach((element) => {
+      if (element.includes("_Storage.basic")) {
         element = element.replace(/ /g, "");
         element = element.replace("_Storage.basic='", "");
         element = element.replace("';", "");
-
-        basic = element;
-        setStorageBasic(element);
+        storageBasic = element;
       }
     });
+    return storageBasic;
+  }
+
+  async function loadPlayersList(url: string) {
+    let playersSiteRAW = await fetchRAW(`https://shinden.pl${url}`);
+    let playersSiteRAWArr = playersSiteRAW.split("\n");
+    let playersArr = getPlayersData(playersSiteRAWArr);
+
+    let basic: string = await getStorageBasic();
+    setStorageBasic(basic);
 
     setActivePlayer([0, ""]);
     setPlayersList(playersArr);
     handleLoadPlayer(playersArr[0].online_id, basic, loadedPlayers);
   }
 
+  //NEXT UPDATE SPLIT RETURN IN TO COMPONENTS
+
   return (
     <>
       <Navbar></Navbar>
+      <LoginError trigger={error_}></LoginError>
       <div id="content">
         <div id="ep_list">
           {episodesList.map((ep, index) => {
@@ -220,4 +203,4 @@ function Serie() {
   );
 }
 
-export default Serie;
+export default SeriePage;
