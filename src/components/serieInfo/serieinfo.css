@@ -1,6 +1,9 @@
 #serie_info_box {
-    margin-top: 20px;
+    margin-top: 30px;
     display: flex;
+    max-width: 1420px;
+    background-color: #29282e;
+    border-radius: 13px;
 }
 
 .title {
@@ -10,9 +13,12 @@
 
 .description {
     margin-left: 10px;
-    max-width: 750px;
 }
 
 .serie_thumbnail {
     max-width: 225px;
+}
+
+.serie_informations {
+    padding: 10px;
 }

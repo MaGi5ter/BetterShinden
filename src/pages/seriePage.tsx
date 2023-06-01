@@ -3,7 +3,8 @@ import { useParams, useLocation } from "react-router-dom";
 
 import Navbar from "../components/Navbar/Navbar";
 import LoginError from "../components/errorHandler/loginError";
-import SerieInfo from "../components/episodesList/serieInfo";
+import SerieInfo from "../components/serieInfo/serieInfo";
+import Related from "../components/related/relatedSeries";
 import { player } from "../components/Player/Player";
 import { fetchRAW, loadPlayer } from "../assets/scripts/dataFetchScripts";
 import {
@@ -148,72 +149,75 @@ function SeriePage() {
       <Navbar></Navbar>
       <LoginError trigger={error_}></LoginError>
       <div id="content">
-        <div id="player_and_ep_list">
-          <div id="ep_list">
-            {episodesList.map((ep, index) => {
-              if (ep[0] != "")
-                return (
-                  <div
-                    className={
-                      index == activeEpisode ? "ep_data active_ep" : "ep_data"
-                    }
-                    onClick={(e) => {
-                      setActiveEpisode(index);
-                      loadPlayersList(ep[1]);
-                    }}
-                  >
-                    <div className="ep_num">{ep[2]}</div>
-                    <div className="ep_titl">{ep[0]}</div>
-                  </div>
-                );
-            })}
-          </div>
-          <div id="player">
-            <div id="_video">
-              {player(loadedPlayers, playersList, activePlayer)}
-            </div>
-            <div id="players_list">
-              {playersList.map((player, index) => {
-                return (
-                  <div
-                    className={
-                      index == activePlayer[0]
-                        ? "player_info active_player"
-                        : "player_info"
-                    }
-                    onClick={(e) => {
-                      handleActivePlayer(index, `${player.online_id}`);
-                      handleLoadPlayer(
-                        player.online_id,
-                        storageBasic,
-                        loadedPlayers
-                      );
-                    }}
-                  >
-                    <div className="player_quality">
-                      <b> {player.max_res}</b>
+        <div id="left-content">
+          <div id="player_and_ep_list">
+            <div id="ep_list">
+              {episodesList.map((ep, index) => {
+                if (ep[0] != "")
+                  return (
+                    <div
+                      className={
+                        index == activeEpisode ? "ep_data active_ep" : "ep_data"
+                      }
+                      onClick={(e) => {
+                        setActiveEpisode(index);
+                        loadPlayersList(ep[1]);
+                      }}
+                    >
+                      <div className="ep_num">{ep[2]}</div>
+                      <div className="ep_titl">{ep[0]}</div>
                     </div>
-                    <div className="player_platform">{player.player}</div>
-                  </div>
-                );
+                  );
               })}
             </div>
+            <div id="player">
+              <div id="_video">
+                {player(loadedPlayers, playersList, activePlayer)}
+              </div>
+              <div id="players_list">
+                {playersList.map((player, index) => {
+                  return (
+                    <div
+                      className={
+                        index == activePlayer[0]
+                          ? "player_info active_player"
+                          : "player_info"
+                      }
+                      onClick={(e) => {
+                        handleActivePlayer(index, `${player.online_id}`);
+                        handleLoadPlayer(
+                          player.online_id,
+                          storageBasic,
+                          loadedPlayers
+                        );
+                      }}
+                    >
+                      <div className="player_quality">
+                        <b> {player.max_res}</b>
+                      </div>
+                      <div className="player_platform">{player.player}</div>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
           </div>
+          <SerieInfo
+            serieInfo={
+              serieData
+                ? serieData
+                : {
+                    description: "",
+                    thumbnail_url: "",
+                    episode_count: 0,
+                    rating: "",
+                    url: "",
+                    serie_name: "",
+                  }
+            }
+          ></SerieInfo>
         </div>
-        <SerieInfo
-          serieInfo={
-            serieData
-              ? serieData
-              : {
-                  description: "",
-                  thumbnail_url: "",
-                  episode_count: 0,
-                  rating: "",
-                  url: "",
-                  serie_name: "",
-                }
-          }
-        ></SerieInfo>
+        <Related></Related>
       </div>
     </>
   );

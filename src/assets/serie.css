@@ -1,6 +1,5 @@
 #content {
     display: flex;
-    flex-direction: column;
     margin-top: 50px;
     margin-bottom: 100px;
     max-width: 1800px;
@@ -19,29 +18,34 @@
 }
 
 #ep_list {
-    max-width: 500px;
-    max-height: 685px;
+    max-width: 300px;
+    max-height: 705px;
+    min-height: 705px;
     min-width: 130px;
     border-right: #d9d4c5 solid 2px;
     padding: 10px;
-    /* overflow-y: scroll; */
     background-color: #d9d4c5;
     border-radius: 10px;
     margin-right: 20px;
     overflow: auto;
 }
 
+#left-content {
+    max-height: 1100px;
+}
+
 #player {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    height: 725px;
     width: 100%;
     padding-top: 0px;
 }
 
 #video_player {
     width: 100%;
-    height: 600px;
+    height: 100%;
     border: none;
     
 }
@@ -74,14 +78,12 @@
 /* EVERYTHING UP IS FOR LIST OF EPISODES */
 
 #_video {
-    /* border: 5px black solid; */
-    min-height: 450px;
+    height: 100%;
 }
 
 #players_list {
     display: flex;
     flex-wrap: wrap;
-    /* border: 5px black solid; */
 }
 
 .player_info {
@@ -132,7 +134,8 @@
     }
     #ep_list {
         order: 2;
-        margin:auto;
+        margin: 20px;
+        max-width: max-content;
         width: -webkit-fill-available
     }
     #players_list {

@@ -5,7 +5,7 @@ body {
     font-family: 'Montserrat', sans-serif;
     margin: 0;
     color: #d9d4c5;
-    background-color: #29282e;
+    background-color: #1f1e22;
     overflow-x: hidden;
   }
 
@@ -22,7 +22,6 @@ body {
 /* Handle */
 ::-webkit-scrollbar-thumb {
   background: #db4523; 
-  border-radius: 5px;
 }
 
 /* Handle on hover */
