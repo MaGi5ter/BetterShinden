@@ -20,7 +20,6 @@ function SeriePage() {
   const [episodesList, setEpisodesList] = useState(["Loading", "", "0"]);
   const [activeEpisode, setActiveEpisode] = useState(0);
   const [activePlayer, setActivePlayer] = useState([0, ""]);
-  const [serieData, setSerieData] = useState<serieDataIn>();
   const [loadingList, setLoadingList] = useState(true);
   const [playersList, setPlayersList] = useState<playerData[]>([]);
   const [storageBasic, setStorageBasic] = useState<string>("");
@@ -43,14 +42,6 @@ function SeriePage() {
   interface loadedPlayerData {
     online_id: string;
     iframe: string;
-  }
-  interface serieDataIn {
-    description: string;
-    thumbnail_url: string;
-    episode_count: number;
-    rating: string;
-    url: string;
-    serie_name: string;
   }
 
   function getID(params) {
@@ -87,6 +78,7 @@ function SeriePage() {
     let newLoadedList = await loadPlayer(online_id, storage, loadedPlayers);
     setLoadedPlayers(newLoadedList.slice());
   }
+
   let currentRoute = useLocation();
   if (loadingList == true) {
     let route = currentRoute.pathname.includes("titles") ? "titles" : "series";
@@ -98,10 +90,7 @@ function SeriePage() {
     let episodesSiteRaw = await fetchRAW(full_url);
     let episodesSiteArr = episodesSiteRaw.split("\n");
 
-    let serie_data = getSerieData(episodesSiteArr);
     let episodesData = getEpisodesData(episodesSiteArr);
-
-    serie_data.episode_count = episodesData.episodesNumber;
     let corrected_links = checkCorrect(episodesData.episodesData);
 
     if (corrected_links[0] == undefined) {
@@ -111,7 +100,6 @@ function SeriePage() {
 
     setLoadingList(false);
     setEpisodesList(corrected_links);
-    setSerieData(serie_data);
     loadPlayersList(corrected_links[0][1]); //FIRST ONE NEEDS TO BE DISPLAYED AUTOMATICALLY
   }
 
@@ -202,20 +190,7 @@ function SeriePage() {
               </div>
             </div>
           </div>
-          <SerieInfo
-            serieInfo={
-              serieData
-                ? serieData
-                : {
-                    description: "",
-                    thumbnail_url: "",
-                    episode_count: 0,
-                    rating: "",
-                    url: "",
-                    serie_name: "",
-                  }
-            }
-          ></SerieInfo>
+          <SerieInfo></SerieInfo>
         </div>
         <Related></Related>
       </div>
