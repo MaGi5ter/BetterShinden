@@ -38,6 +38,7 @@
     display: flex;
     margin-left: 10px;
     max-height: 100px;
+    min-height: 100px;
     margin-bottom: 15px;
     background-color: #29282e;
     border-radius: 13px;
@@ -57,4 +58,30 @@
 
 .related_title {
     font-weight: 500;
+}
+
+@media only screen and (max-width: 1540px) and (min-width: 1200px){
+    #list {
+        max-height: 1790px;
+    }
+    #related_list {
+        max-height: none;
+    }
+}
+
+@media only screen and (max-width: 1200px) {
+    #list {
+        overflow-y: unset;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+    .related_serie {
+        width: 47vw;
+    }
+    #related_list {
+        max-width: none;
+        max-height: none;
+        overflow-y: unset;
+    }
 }

@@ -46,8 +46,7 @@
 #video_player {
     width: 100%;
     height: 100%;
-    border: none;
-    
+    border: none; 
 }
 
 .ep_data {
@@ -120,7 +119,89 @@
     background-color: #db4523;
 }
 
-@media only screen and (max-width: 960px){
+@media only screen and (max-width: 1540px) and (min-width: 1200px){
+    #player_and_ep_list{
+        flex-direction: column;
+    }
+    #player {
+        order: 1;
+        padding-left: 0;
+        padding-right: 0;
+    }
+    #ep_list {
+        order: 2;
+        margin: 20px;
+        max-width: none;
+        min-height: max-content;
+    }
+}
+
+@media only screen and (max-width: 1200px)  and (min-width:850px){
+    #player_and_ep_list{
+        flex-direction: column;
+    }
+    #content {
+        flex-direction: column;
+    }
+    #left-content {
+        max-height: none;
+    }
+    #player {
+        order: 1;
+        padding-left: 0;
+        padding-right: 0;
+    }
+    #ep_list {
+        order: 2;
+        margin: 20px;
+        max-width: none;
+        min-height: max-content;
+    }
+    #players_list {
+        padding: 20px;
+        width: fit-content;
+    }
+    #video_player {
+        width: -webkit-fill-available;
+    }
+}
+
+@media only screen and (max-width: 850px) {
+    #player_and_ep_list{
+        flex-direction: column;
+    }
+    #content {
+        flex-direction: column;
+    }
+    #left-content {
+        max-height: none;
+    }
+    #player {
+        order: 1;
+        height: auto;
+        padding-left: 0;
+        padding-right: 0;
+    }
+    #ep_list {
+        order: 2;
+        margin: 20px;
+        max-width: none;
+        min-height: max-content;
+    }
+    #players_list {
+        padding: 20px;
+        width: fit-content;
+    }
+    #video_player {
+        width: -webkit-fill-available;
+        height: 400px;
+    }
+
+    #_video{
+        height: 400px;
+    }
+}
+/* @media only screen and (max-width: 960px){
     #content {
         flex-direction: column;
     }
@@ -145,4 +226,4 @@
     #video_player {
         width: -webkit-fill-available;
     }
-   }
+   } */
