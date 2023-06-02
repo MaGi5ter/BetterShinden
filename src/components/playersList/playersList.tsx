@@ -15,16 +15,20 @@ interface playerData {
   source: string;
 }
 
+type loadPlayerFunction = (a: string) => Promise<void>;
+
 interface Prop {
   players_url: string;
+  loadPlayer: loadPlayerFunction;
+  setPlayers: React.Dispatch<React.SetStateAction<playerData[]>>;
 }
 
-function PlayersList({ players_url }: Prop) {
+function PlayersList({ players_url, loadPlayer, setPlayers }: Prop) {
   const [playersList, setPlayersList] = useState<playerData[]>([]);
   const [activePlayersURL, setActivePlayersURL] = useState<string>();
   const [activePlayer, setActivePlayer] = useState(0);
 
-  console.log("new players url", players_url);
+  //   console.log("new players url", players_url);
 
   if (activePlayersURL != players_url) {
     //Prevents insignificant reloading of playerslist
@@ -33,6 +37,7 @@ function PlayersList({ players_url }: Prop) {
   }
 
   async function getPlayersList(url: string) {
+    setActivePlayer(0);
     let playersRaw = await fetchRAW(url);
 
     const parser = new DOMParser();
@@ -44,7 +49,10 @@ function PlayersList({ players_url }: Prop) {
       return JSON.parse(element.getAttribute("data-episode")!);
     });
 
+    // console.log(players);
+    loadPlayer(players[0].online_id);
     setPlayersList(players);
+    setPlayers(players);
   }
 
   return (
@@ -59,7 +67,7 @@ function PlayersList({ players_url }: Prop) {
             }
             onClick={(e) => {
               setActivePlayer(index);
-              //   handleLoadPlayer(player.online_id, storageBasic, loadedPlayers);
+              loadPlayer(player.online_id);
             }}
           >
             <div className="player_quality">

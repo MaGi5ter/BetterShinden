@@ -59,7 +59,7 @@ function Related() {
     setLoading(false);
   }
 
-  console.log("RELATED", getLocation());
+  // console.log("RELATED", getLocation());
 
   collectData();
 

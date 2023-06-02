@@ -19,17 +19,14 @@ interface loadedPlayerData {
   iframe: string;
 }
 
-export function player( //tried making it as JSX but got IntrinsicAttributes and cant resolve issue, so made in that way
-  loadedPlayers: loadedPlayerData[],
-  playersList: playerData[],
-  activePlayer: (string | number)[]
-) {
-  let id = loadedPlayers.findIndex(
-    (el) => el.online_id == playersList[activePlayer[0]].online_id
-  );
+interface Prop {
+  player: loadedPlayerData;
+}
 
-  console.log("displayPlayer", id, loadedPlayers);
-  if (id === -1) {
+export function Player({ player }: Prop) {
+  console.log(player);
+
+  if (player.online_id == "") {
     return (
       <img
         id="loading_gif"
@@ -38,7 +35,7 @@ export function player( //tried making it as JSX but got IntrinsicAttributes and
       />
     );
   } else {
-    let ifr = parse(loadedPlayers[id].iframe);
+    let ifr = parse(player.iframe);
     console.log(ifr);
     let src_ = ifr[1].props.src;
     console.log(src_);
@@ -46,4 +43,4 @@ export function player( //tried making it as JSX but got IntrinsicAttributes and
   }
 }
 
-// export default Player;
+export default Player;

@@ -59,6 +59,7 @@ function EpisodesList(prop: Prop) {
     episodeList = episodeList.reverse();
     setEpisodesList(episodeList);
     setLoadingList(false);
+    prop.loadPlayers(episodeList[0].url);
   }
 
   return (
