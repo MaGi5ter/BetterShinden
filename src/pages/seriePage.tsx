@@ -11,7 +11,6 @@ import { fetchRAW, loadPlayer } from "../assets/scripts/dataFetchScripts";
 import "../assets/serie.css";
 
 function SeriePage() {
-  const [activePlayer, setActivePlayer] = useState([0, ""]);
   const [activePlayers, setActivePlayers] = useState<string>("");
   const [playersList, setPlayersList] = useState<playerData[]>([]);
   const [displayedPlayer, setDisplayedPlayer] = useState<loadedPlayerData>({
