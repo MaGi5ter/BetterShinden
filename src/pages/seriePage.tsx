@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { useParams, useLocation } from "react-router-dom";
 
 import Navbar from "../components/Navbar/Navbar";
 import LoginError from "../components/errorHandler/loginError";
@@ -9,11 +8,6 @@ import PlayersList from "../components/playersList/playersList";
 import Related from "../components/related/relatedSeries";
 import Player from "../components/Player/Player";
 import { fetchRAW, loadPlayer } from "../assets/scripts/dataFetchScripts";
-import {
-  getSerieData,
-  getEpisodesData,
-  getPlayersData,
-} from "../assets/scripts/dataExtracting";
 import "../assets/serie.css";
 
 function SeriePage() {

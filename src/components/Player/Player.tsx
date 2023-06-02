@@ -1,18 +1,6 @@
 import React from "react";
+import { useState } from "react";
 import parse from "html-react-parser";
-
-interface playerData {
-  online_id: string;
-  player: string;
-  username: string;
-  user_id: string;
-  lang_audio: string;
-  lang_subs: string;
-  max_res: string;
-  subs_author: string;
-  added: string;
-  source: string;
-}
 
 interface loadedPlayerData {
   online_id: string;
@@ -23,10 +11,17 @@ interface Prop {
   player: loadedPlayerData;
 }
 
-export function Player({ player }: Prop) {
-  console.log(player);
+function Player({ player }: Prop) {
+  const [playerData, setPlayerData] = useState<loadedPlayerData>({
+    online_id: "",
+    iframe: "",
+  });
 
-  if (player.online_id == "") {
+  if (playerData != player) {
+    setPlayerData(player);
+  }
+
+  if (playerData.online_id == "") {
     return (
       <img
         id="loading_gif"
@@ -35,10 +30,8 @@ export function Player({ player }: Prop) {
       />
     );
   } else {
-    let ifr = parse(player.iframe);
-    console.log(ifr);
+    let ifr = parse(playerData.iframe);
     let src_ = ifr[1].props.src;
-    console.log(src_);
     return <iframe id="video_player" src={src_} allowFullScreen />;
   }
 }
