@@ -2,11 +2,6 @@ import React, { useState } from "react";
 import { useParams, useLocation } from "react-router-dom";
 
 import { fetchRAW } from "../../assets/scripts/dataFetchScripts";
-import {
-  getSerieData,
-  getEpisodesData,
-  getPlayersData,
-} from "../../assets/scripts/dataExtracting";
 
 function getID(params) {
   if (params == undefined) {
@@ -19,8 +14,23 @@ function getID(params) {
   }
 }
 
-function EpisodesList() {
+interface episodeData {
+  title: string;
+  url: string;
+}
+
+type loadPlayersFunction = (a: string) => Promise<void>;
+
+interface Prop {
+  loadPlayers: loadPlayersFunction;
+}
+
+function EpisodesList(prop: Prop) {
+  const params = useParams();
+
   const [loadingList, setLoadingList] = useState(true);
+  const [episodesList, setEpisodesList] = useState<episodeData[]>([]);
+  const [activeEpisode, setActiveEpisode] = useState(0);
 
   let currentRoute = useLocation();
   if (loadingList) {
@@ -31,24 +41,47 @@ function EpisodesList() {
   async function getEpisodesList(id: number, route: string) {
     let full_url = `https://shinden.pl/${route}/${id}/all-episodes`;
     let episodesSiteRaw = await fetchRAW(full_url);
-    let episodesSiteArr = episodesSiteRaw.split("\n");
 
-    let serie_data = getSerieData(episodesSiteArr);
-    let episodesData = getEpisodesData(episodesSiteArr);
+    const parser = new DOMParser();
+    const document = parser.parseFromString(episodesSiteRaw, "text/html");
+    let episodeList: episodeData[] = [];
+    document
+      .querySelector(".list-episode-checkboxes")
+      ?.querySelectorAll("tr")
+      .forEach((episode) => {
+        let episodeData: episodeData = { title: "", url: "" };
+        episodeData.title = episode.querySelector(".ep-title")?.innerHTML || "";
+        episodeData.url = episode.querySelector("a")?.href || "";
 
-    serie_data.episode_count = episodesData.episodesNumber;
-    let corrected_links = checkCorrect(episodesData.episodesData);
+        episodeList.push(episodeData);
+      });
 
-    if (corrected_links[0] == undefined) {
-      setError(true);
-      return;
-    }
-
+    episodeList = episodeList.reverse();
+    setEpisodesList(episodeList);
     setLoadingList(false);
-    setEpisodesList(corrected_links);
-    setSerieData(serie_data);
-    // loadPlayersList(corrected_links[0][1]); //FIRST ONE NEEDS TO BE DISPLAYED AUTOMATICALLY
   }
+
+  return (
+    <div id="ep_list">
+      {episodesList.map((ep, index) => {
+        if (ep.title != "")
+          return (
+            <div
+              className={
+                index == activeEpisode ? "ep_data active_ep" : "ep_data"
+              }
+              onClick={(e) => {
+                setActiveEpisode(index);
+                prop.loadPlayers(ep.url);
+              }}
+            >
+              <div className="ep_num">{index + 1}</div>
+              <div className="ep_titl">{ep.title}</div>
+            </div>
+          );
+      })}
+    </div>
+  );
 }
 
 export default EpisodesList;

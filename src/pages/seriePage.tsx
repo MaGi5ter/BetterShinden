@@ -4,6 +4,8 @@ import { useParams, useLocation } from "react-router-dom";
 import Navbar from "../components/Navbar/Navbar";
 import LoginError from "../components/errorHandler/loginError";
 import SerieInfo from "../components/serieInfo/serieInfo";
+import EpisodesList from "../components/EpisodesList/episodesList";
+import PlayersList from "../components/playersList/playersList";
 import Related from "../components/related/relatedSeries";
 import { player } from "../components/Player/Player";
 import { fetchRAW, loadPlayer } from "../assets/scripts/dataFetchScripts";
@@ -20,6 +22,7 @@ function SeriePage() {
   const [episodesList, setEpisodesList] = useState(["Loading", "", "0"]);
   const [activeEpisode, setActiveEpisode] = useState(0);
   const [activePlayer, setActivePlayer] = useState([0, ""]);
+  const [activePlayers, setActivePlayers] = useState<string>("");
   const [loadingList, setLoadingList] = useState(true);
   const [playersList, setPlayersList] = useState<playerData[]>([]);
   const [storageBasic, setStorageBasic] = useState<string>("");
@@ -97,7 +100,7 @@ function SeriePage() {
       setError(true);
       return;
     }
-
+    console.log(corrected_links);
     setLoadingList(false);
     setEpisodesList(corrected_links);
     loadPlayersList(corrected_links[0][1]); //FIRST ONE NEEDS TO BE DISPLAYED AUTOMATICALLY
@@ -118,7 +121,9 @@ function SeriePage() {
   }
 
   async function loadPlayersList(url: string) {
-    let playersSiteRAW = await fetchRAW(`https://shinden.pl${url}`);
+    // let playersSiteRAW = await fetchRAW(`https://shinden.pl${url}`);
+    setActivePlayers(url);
+    let playersSiteRAW = await fetchRAW(url);
     let playersSiteRAWArr = playersSiteRAW.split("\n");
     let playersArr = getPlayersData(playersSiteRAWArr);
 
@@ -134,30 +139,13 @@ function SeriePage() {
 
   return (
     <>
+      <PlayersList players_url={activePlayers}></PlayersList>
       <Navbar></Navbar>
       <LoginError trigger={error_}></LoginError>
       <div id="content">
         <div id="left-content">
           <div id="player_and_ep_list">
-            <div id="ep_list">
-              {episodesList.map((ep, index) => {
-                if (ep[0] != "")
-                  return (
-                    <div
-                      className={
-                        index == activeEpisode ? "ep_data active_ep" : "ep_data"
-                      }
-                      onClick={(e) => {
-                        setActiveEpisode(index);
-                        loadPlayersList(ep[1]);
-                      }}
-                    >
-                      <div className="ep_num">{ep[2]}</div>
-                      <div className="ep_titl">{ep[0]}</div>
-                    </div>
-                  );
-              })}
-            </div>
+            <EpisodesList loadPlayers={loadPlayersList}></EpisodesList>
             <div id="player">
               <div id="_video">
                 {player(loadedPlayers, playersList, activePlayer)}

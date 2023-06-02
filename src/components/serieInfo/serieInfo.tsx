@@ -50,12 +50,14 @@ function SerieInfo() {
           .replace('">', "")
       : "Brak Opisu";
 
+    //GETS THUMBNAIL
     let thumbnail =
       document
         .querySelector(".info-aside-img")
         ?.outerHTML.replace('<img class="info-aside-img" src="', "")
         .replace('">', "") || "";
 
+    //GETS THUMBNAIL
     let name = document.querySelector(".title")?.innerHTML || "Brak Tytułu";
 
     setSerieData({

@@ -201,29 +201,3 @@
         height: 400px;
     }
 }
-/* @media only screen and (max-width: 960px){
-    #content {
-        flex-direction: column;
-    }
-    #player_and_ep_list{
-        flex-direction: column;
-    }
-    #player {
-        order: 1;
-        padding-left: 0;
-        padding-right: 0;
-    }
-    #ep_list {
-        order: 2;
-        margin: 20px;
-        max-width: max-content;
-        width: -webkit-fill-available
-    }
-    #players_list {
-        padding: 20px;
-        width: fit-content;
-    }
-    #video_player {
-        width: -webkit-fill-available;
-    }
-   } */
