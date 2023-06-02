@@ -5,7 +5,7 @@
     max-width: 1800px;
     margin-left: auto;
     margin-right: auto;
-    /* height: 600px; */
+    width: fit-content;
 }
 
 #player_and_ep_list{
@@ -15,19 +15,6 @@
 #loading_gif {
     padding: 50px;
     width: 50%;
-}
-
-#ep_list {
-    max-width: 300px;
-    max-height: 705px;
-    min-height: 705px;
-    min-width: 130px;
-    border-right: #d9d4c5 solid 2px;
-    padding: 10px;
-    background-color: #d9d4c5;
-    border-radius: 10px;
-    margin-right: 20px;
-    overflow: auto;
 }
 
 #left-content {
@@ -49,31 +36,6 @@
     border: none; 
 }
 
-.ep_data {
-    display: flex;
-    padding: 2px;
-    cursor: pointer;
-    font-weight: 500;
-    background-color: #29282e;
-    color: #d9d4c5;
-    margin-bottom: 5px;
-    border-radius: 5px;
-}
-
-.ep_data:hover {
-    background-color: #db4523;
-    color: #d9d4c5;
-    border-radius: 5px;
-}
-
-.ep_num {
-    padding: 5px;
-}
-
-.ep_titl {
-    padding: 5px;
-}
-
 /* EVERYTHING UP IS FOR LIST OF EPISODES */
 
 #_video {
@@ -83,6 +45,7 @@
 #players_list {
     display: flex;
     flex-wrap: wrap;
+    margin-top: 10px;
 }
 
 .player_info {
@@ -109,12 +72,6 @@
     background-color: rgb(79, 153, 79);
 }
 
-.active_ep {
-    background-color: #db4523;
-    color: #d9d4c5;
-    border-radius: 5px;
-}
-
 .active_player {
     background-color: #db4523;
 }
@@ -127,12 +84,6 @@
         order: 1;
         padding-left: 0;
         padding-right: 0;
-    }
-    #ep_list {
-        order: 2;
-        margin: 20px;
-        max-width: none;
-        min-height: max-content;
     }
 }
 
@@ -150,12 +101,6 @@
         order: 1;
         padding-left: 0;
         padding-right: 0;
-    }
-    #ep_list {
-        order: 2;
-        margin: 20px;
-        max-width: none;
-        min-height: max-content;
     }
     #players_list {
         padding: 20px;
@@ -181,12 +126,6 @@
         height: auto;
         padding-left: 0;
         padding-right: 0;
-    }
-    #ep_list {
-        order: 2;
-        margin: 20px;
-        max-width: none;
-        min-height: max-content;
     }
     #players_list {
         padding: 20px;

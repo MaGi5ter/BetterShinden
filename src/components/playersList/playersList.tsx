@@ -28,8 +28,6 @@ function PlayersList({ players_url, loadPlayer, setPlayers }: Prop) {
   const [activePlayersURL, setActivePlayersURL] = useState<string>();
   const [activePlayer, setActivePlayer] = useState(0);
 
-  //   console.log("new players url", players_url);
-
   if (activePlayersURL != players_url) {
     //Prevents insignificant reloading of playerslist
     setActivePlayersURL(players_url);
@@ -49,7 +47,6 @@ function PlayersList({ players_url, loadPlayer, setPlayers }: Prop) {
       return JSON.parse(element.getAttribute("data-episode")!);
     });
 
-    // console.log(players);
     loadPlayer(players[0].online_id);
     setPlayersList(players);
     setPlayers(players);

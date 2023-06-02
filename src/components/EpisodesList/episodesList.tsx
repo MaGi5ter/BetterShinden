@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useParams, useLocation } from "react-router-dom";
-
 import { fetchRAW } from "../../assets/scripts/dataFetchScripts";
+import "./episodesList.css";
 
 function getID(params) {
   if (params == undefined) {
@@ -62,26 +62,50 @@ function EpisodesList(prop: Prop) {
     prop.loadPlayers(episodeList[0].url);
   }
 
+  function classNames(index: number) {
+    let active = false;
+    let darker = false;
+
+    if (index == activeEpisode) active = true;
+    if (index % 2 == 0) darker = true;
+
+    if (active && darker) return "ep_data active_ep";
+    if (active) return "ep_data active_ep";
+    if (darker) return "ep_data darker";
+    else return "ep_data";
+  }
+
+  console.log(episodesList);
+
   return (
-    <div id="ep_list">
-      {episodesList.map((ep, index) => {
-        if (ep.title != "")
-          return (
-            <div
-              className={
-                index == activeEpisode ? "ep_data active_ep" : "ep_data"
-              }
-              onClick={(e) => {
-                setActiveEpisode(index);
-                prop.loadPlayers(ep.url);
-              }}
-            >
-              <div className="ep_num">{index + 1}</div>
-              <div className="ep_titl">{ep.title}</div>
+    <>
+      {episodesList.length == 1 ? (
+        <>
+          <div className="padding5"></div>
+        </>
+      ) : (
+        <>
+          <div id="ep_list">
+            <div id="list_data">
+              {episodesList.map((ep, index) => {
+                return (
+                  <div
+                    className={classNames(index)}
+                    onClick={(e) => {
+                      setActiveEpisode(index);
+                      prop.loadPlayers(ep.url);
+                    }}
+                  >
+                    <div className="ep_num">{index + 1}</div>
+                    <div className="ep_titl">{ep.title}</div>
+                  </div>
+                );
+              })}
             </div>
-          );
-      })}
-    </div>
+          </div>
+        </>
+      )}
+    </>
   );
 }
 

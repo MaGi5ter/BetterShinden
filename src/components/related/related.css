@@ -41,11 +41,15 @@
     min-height: 100px;
     margin-bottom: 15px;
     background-color: #29282e;
-    border-radius: 13px;
+    border-radius: 6px;
 }
 
 .related_serie:hover {
     background-color: #46444e;
+}
+
+.padding5 {
+    padding: 5px;
 }
 
 .related_serie:hover .related_title{
