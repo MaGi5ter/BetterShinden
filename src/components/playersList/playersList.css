@@ -1,0 +1,48 @@
+#players_list {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 10px;
+}
+
+.playerslist-warning {
+    margin-left: auto;
+    margin-right: auto;
+    color: red;
+    font-size: x-large;
+    font-weight: 600;
+    padding: 10px;
+}
+
+.player_info {
+    color: #29282e;
+    background-color: #d9d4c5;
+    padding: 2px;
+    margin: 2px;
+    font-weight: 400;
+    display: flex;
+    font-size: medium;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.player_info:hover {
+    background-color: #db4523;
+}
+
+.active_player {
+    background-color: #db4523;
+}
+
+@media only screen and (max-width: 1200px)  and (min-width:850px){
+    #players_list {
+        padding: 20px;
+        width: fit-content;
+    }
+}
+
+@media only screen and (max-width: 850px) {
+    #players_list {
+        padding: 20px;
+        width: fit-content;
+    }
+}

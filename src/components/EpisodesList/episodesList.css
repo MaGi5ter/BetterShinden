@@ -1,8 +1,8 @@
 #ep_list {
     max-width: 300px;
+    min-width: 225px;
     max-height: 705px;
     min-height: 705px;
-    min-width: 130px;
     padding: 10px;
     background-color: #151416;
     margin-right: 10px;

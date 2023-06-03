@@ -12,7 +12,6 @@ import "../assets/serie.css";
 
 function SeriePage() {
   const [activePlayers, setActivePlayers] = useState<string>("");
-  const [playersList, setPlayersList] = useState<playerData[]>([]);
   const [displayedPlayer, setDisplayedPlayer] = useState<loadedPlayerData>({
     online_id: "",
     iframe: "",
@@ -90,11 +89,9 @@ function SeriePage() {
             <EpisodesList loadPlayers={loadPlayersList}></EpisodesList>
             <div id="player">
               <Player player={displayedPlayer}></Player>
-              {/* <div id="_video">{player(displayedPlayer)}</div> */}
               <PlayersList
                 players_url={activePlayers}
                 loadPlayer={newHandlePlayer}
-                setPlayers={setPlayersList}
               ></PlayersList>
             </div>
           </div>

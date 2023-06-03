@@ -1,6 +1,38 @@
 import React from "react";
 import { useState } from "react";
+import { useLocation } from "react-router-dom";
 import { fetchRAW } from "../../assets/scripts/dataFetchScripts";
+import "./playersList.css";
+
+async function checkLogged() {
+  let mainPage = await fetchRAW("https://shinden.pl");
+  const parser = new DOMParser();
+  const document = parser.parseFromString(mainPage, "text/html");
+
+  let test = document.querySelector(".top-bar--nav-user");
+  console.log(test);
+  if (test == null) {
+    return {
+      logged: false,
+      logout_link: "",
+    };
+  } else {
+    let logout_link: string;
+    test
+      .querySelector(".bd")
+      ?.querySelectorAll("li")
+      .forEach((element, index) => {
+        if (index == 3) {
+          logout_link = element.querySelector("a")?.href!;
+        }
+      });
+
+    return {
+      logged: true,
+      logout_link: logout_link!,
+    };
+  }
+}
 
 interface playerData {
   online_id: string;
@@ -20,13 +52,28 @@ type loadPlayerFunction = (a: string) => Promise<void>;
 interface Prop {
   players_url: string;
   loadPlayer: loadPlayerFunction;
-  setPlayers: React.Dispatch<React.SetStateAction<playerData[]>>;
 }
 
-function PlayersList({ players_url, loadPlayer, setPlayers }: Prop) {
+function PlayersList({ players_url, loadPlayer }: Prop) {
   const [playersList, setPlayersList] = useState<playerData[]>([]);
   const [activePlayersURL, setActivePlayersURL] = useState<string>();
   const [activePlayer, setActivePlayer] = useState(0);
+  const [logged, setLogged] = useState({
+    logged: false,
+    logout_link: "",
+  });
+  const [checkinglogged, setCheckingLogged] = useState(true);
+
+  if (checkinglogged) {
+    setCheckingLogged(false);
+    handleLogged();
+  }
+
+  async function handleLogged() {
+    let data = await checkLogged();
+    console.log(data);
+    setLogged(data);
+  }
 
   if (activePlayersURL != players_url) {
     //Prevents insignificant reloading of playerslist
@@ -49,31 +96,38 @@ function PlayersList({ players_url, loadPlayer, setPlayers }: Prop) {
 
     loadPlayer(players[0].online_id);
     setPlayersList(players);
-    setPlayers(players);
   }
 
   return (
     <div id="players_list">
-      {playersList.map((player, index) => {
-        return (
-          <div
-            className={
-              index == activePlayer
-                ? "player_info active_player"
-                : "player_info"
-            }
-            onClick={(e) => {
-              setActivePlayer(index);
-              loadPlayer(player.online_id);
-            }}
-          >
-            <div className="player_quality">
-              <b> {player.max_res}</b>
+      {playersList[0] == undefined &&
+      useLocation().pathname.includes("titles") &&
+      !logged.logged ? (
+        <div className="playerslist-warning">
+          NIE JESTEŚ ZALOGOWANY, TA SERIA WYMAGA KONTA BY JĄ OGLĄDAĆ
+        </div>
+      ) : (
+        playersList.map((player, index) => {
+          return (
+            <div
+              className={
+                index == activePlayer
+                  ? "player_info active_player"
+                  : "player_info"
+              }
+              onClick={(e) => {
+                setActivePlayer(index);
+                loadPlayer(player.online_id);
+              }}
+            >
+              <div className="player_quality">
+                <b> {player.max_res}</b>
+              </div>
+              <div className="player_platform">{player.player}</div>
             </div>
-            <div className="player_platform">{player.player}</div>
-          </div>
-        );
-      })}
+          );
+        })
+      )}
     </div>
   );
 }
