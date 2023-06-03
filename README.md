@@ -13,7 +13,6 @@ it taked me about 26s
 ![ShindenTime](https://cdn.discordapp.com/attachments/1068518072769589370/1114293787922022530/ShindenTime.gif?width=810&height=420?width=810&height=425)
 
 with BetterShinden extension
-
 it taked 11s
 
 ![alt text](https://media.discordapp.net/attachments/1068518072769589370/1114284829383598150/BetterShindenTime.gif?width=810&height=475)
