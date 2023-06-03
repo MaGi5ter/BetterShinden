@@ -9,14 +9,19 @@
     /* align-items: center; */
     justify-content: space-between;
     padding-left: 10px;
-  }
+}
 
-  #nav__buttons {
+.logo_link{
+    text-decoration: none;
+    align-self: center;
+}
+
+#nav__buttons {
     margin-right: 30px;
     align-self: center;
-  }
+}
 
-  #nav__buttons button {
+#nav__buttons button {
     font-weight: 500;
     margin-right: 10px;
     padding: 9px 25px;
@@ -24,7 +29,7 @@
     border: none;
     cursor: pointer;
     border-radius: 50px;
-  }
+}
 
   .srch {
     text-align: center;

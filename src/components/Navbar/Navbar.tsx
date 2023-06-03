@@ -65,7 +65,9 @@ function Navbar() {
     <>
       <Popup trigger={showPopup} close={handlePopup}></Popup>
       <div id="navbar">
-        <h1 id="logo"> BetterShinden</h1>
+        <a href="/" className="logo_link">
+          <h1 id="logo"> BetterShinden</h1>
+        </a>
         <div id="searchbar">
           <div className="srch">
             <input

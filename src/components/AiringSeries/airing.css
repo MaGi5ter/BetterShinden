@@ -1,0 +1,74 @@
+.airing-grid {
+    display: flex;
+    flex-direction: column;
+}
+
+.airing-content {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    margin-left: 10px;
+    margin-right: 10px;
+    /* max-width: 1100px; */
+}
+
+.airing-grid-title {
+    margin-left: 10px;
+    margin-bottom: 10px;
+    padding: 5px;
+    background-color: #29282e;
+    font-size: xx-large;
+    font-weight: 500;
+    width: fit-content;
+    border-radius: 5px;
+}
+
+.airing-data {
+    display: flex;
+    flex-direction: column;
+    /* max-width: 200px; */
+}
+
+.airing-image {
+    width: 100%;
+    border-radius: 5px 5px 0px 0px;
+}
+
+.airing-footer {
+    background-color: #29282e;
+    padding: 5px;
+    border-radius: 0px 0px 5px 5px;
+    justify-content: right;
+}
+
+.airing-title {
+    padding: 5px;
+}
+
+.airing-element{
+    text-decoration: none;
+    color: #d9d4c5;
+    max-width: 19%;
+}
+
+.airing-element:nth-child(5n){
+    flex-basis: 100%;
+}
+
+@media only screen and (max-width: 1050px){
+    .airing-element{
+        max-width: 24%;
+    }
+}
+
+@media only screen and (max-width: 850px){
+    .airing-element{
+        max-width: 32%;
+    }
+}
+
+@media only screen and (max-width: 700px){
+    .airing-element{
+        max-width: 49%;
+    }
+}
