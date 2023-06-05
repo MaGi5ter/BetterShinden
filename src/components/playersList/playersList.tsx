@@ -94,7 +94,7 @@ function PlayersList({ players_url, loadPlayer }: Prop) {
       return JSON.parse(element.getAttribute("data-episode")!);
     });
 
-    loadPlayer(players[0].online_id);
+    players[0] == undefined ? {} : loadPlayer(players[0].online_id);
     setPlayersList(players);
   }
 
