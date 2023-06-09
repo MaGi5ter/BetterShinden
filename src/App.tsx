@@ -6,16 +6,13 @@ import SeriePage from "./pages/seriePage";
 
 function App() {
   console.clear();
-  console.log(
-    "Dziekuje za zaufanie i korzystanie z tego dodatku, mam nadzieje ze pozwoli wam on korzystac w normalny i wygodniejszy sposób z tej strony"
-  );
 
   return (
     <div>
       <BrowserRouter>
         <Routes>
-          <Route index element={<Main />}></Route>
-          <Route path="/main" element={<Main />}></Route>
+          {/* <Route index element={<Main />}></Route> */}
+          {/* <Route path="/main" element={<Main />}></Route> */}
           <Route path="/series/:id" element={<SeriePage />}></Route>
           <Route path="/titles/:id" element={<SeriePage />}></Route>
         </Routes>
