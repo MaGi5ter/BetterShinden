@@ -4,6 +4,14 @@ Im still working at the extension
 
 Shinden is a polish website where u can watch animes subbed by fans, for free, however using their website is really awful (ads, popups, captchas etc), also the time it takes to find an episode is terribly irritating
 
+## How to install
+
+1. Go to [releases](https://github.com/MaGi5ter/BetterShinden/releases) and download latest version zip file named should look like that BetterShinden.v1.1.2.zip
+2. Then extract it from zip file
+3. Go to you browser chrome://extensions page
+4. Set developer mode
+5. Load unpacked
+
 ## time comparison below
 
 normal shinden.pl
