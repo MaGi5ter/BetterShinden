@@ -17,21 +17,12 @@ function SeriePage() {
     iframe: "",
   });
   const [storageBasic, setStorageBasic] = useState<string>("");
-  const [loadedPlayers, setLoadedPlayers] = useState<loadedPlayerData[]>([]);
-  const [error_, setError] = useState(false);
+  const [loadedPlayers, setLoadedPlayers] = useState<loadedPlayerData[]>(
+    JSON.parse(localStorage.getItem("loaded")!) || []
+  );
+  const [error_, setError] = useState(false); //currently dont used
 
-  interface playerData {
-    online_id: string;
-    player: string;
-    username: string;
-    user_id: string;
-    lang_audio: string;
-    lang_subs: string;
-    max_res: string;
-    subs_author: string;
-    added: string;
-    source: string;
-  }
+  console.log(loadedPlayers);
 
   interface loadedPlayerData {
     online_id: string;
@@ -66,7 +57,9 @@ function SeriePage() {
       loadedPlayers
     );
 
-    setLoadedPlayers(newLoadedList.slice());
+    localStorage.setItem("loaded", JSON.stringify(newLoadedList));
+
+    setLoadedPlayers(JSON.parse(localStorage.getItem("loaded")!));
 
     let toDisplay = newLoadedList.find(
       (element) => element.online_id == online_id
