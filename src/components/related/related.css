@@ -30,6 +30,10 @@
     padding-bottom: 5px;
 }
 
+.related_image {
+    max-width: 80px;
+}
+
 .related_info p {
     margin: 0;
 }

@@ -73,7 +73,7 @@ function Related() {
               return (
                 <a href={relation.link} className="relation_link">
                   <div className="related_serie">
-                    <img src={relation.image} />
+                    <img className="related_image" src={relation.image} />
                     <div className="related_info">
                       <p className="related_type">{relation.serieType}</p>
                       <p className="related_title">{relation.title}</p>
